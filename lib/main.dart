@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-
-
 import 'database.dart';
-
 import 'package:uuid/uuid.dart';
 
 void main() async {
-  runApp(const LoginApp());
+  runApp(const RegisterApp());
   await createDatabase();
 }
 
-
-
-class LoginApp extends StatelessWidget {
-  const LoginApp({Key? key}) : super(key: key);
+class RegisterApp extends StatelessWidget {
+  const RegisterApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +18,27 @@ class LoginApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const CadastroPage(), // alterado de CadastroPage para ContatosPage
+      home: const RegisterPage(), // alterado de CadastroPage para ContatosPage
     );
   }
 }
 
-
 var uuid = const Uuid();
 
-class ContatosPage extends StatefulWidget {
+class ListUserPage extends StatefulWidget {
   @override
-  _ContatosPageState createState() => _ContatosPageState();
+  _ListUserPageState createState() => _ListUserPageState();
 }
 
-class _ContatosPageState extends State<ContatosPage> {
+class _ListUserPageState extends State<ListUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contatos'),
       ),
-      body: FutureBuilder<List<Contato>>(
-        future: getContatos(),
+      body: FutureBuilder<List<User>>(
+        future: getUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -60,13 +54,11 @@ class _ContatosPageState extends State<ContatosPage> {
                   );
                 },
               );
-            } 
-            else if (snapshot.hasError) {
-  return Center(
-    child: Text('Erro ao carregar contatos: ${snapshot.error}'),
-  );
-}
-else {
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Erro ao carregar contatos: ${snapshot.error}'),
+              );
+            } else {
               return const Center(
                 child: Text('Nenhum contato encontrado.'),
               );
@@ -82,14 +74,14 @@ else {
   }
 }
 
-class CadastroPage extends StatefulWidget {
-  const CadastroPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  _CadastroPageState createState() => _CadastroPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _CadastroPageState extends State<CadastroPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
 
@@ -97,7 +89,7 @@ class _CadastroPageState extends State<CadastroPage> {
     String email = _emailController.text;
     String senha = _senhaController.text;
 
-    Contato novoContato = Contato(
+    User novoContato = User(
       id: DateTime.now().microsecondsSinceEpoch,
       email: email,
       senha: senha,
@@ -108,18 +100,17 @@ class _CadastroPageState extends State<CadastroPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: const Text('Cadastro realizado!'),
-          content: const Text('Seus dados foram salvos com sucesso.'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Fechar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
+        title: const Text('Cadastro realizado!'),
+        content: const Text('Seus dados foram salvos com sucesso.'),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Fechar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -137,29 +128,48 @@ class _CadastroPageState extends State<CadastroPage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'E-mail'),
-            ),
-            const SizedBox(height: 1.0),
-            TextField(
-              controller: _senhaController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Senha'),
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              child: const Text('Cadastrar'),
-              onPressed: _cadastrar,
-            )
-          ],
+body: SingleChildScrollView(
+  child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Image.asset(
+          'assets/images/user_.png',
+          width: 100,
+          height: 150,
+        ), 
+        const SizedBox(height: 16.0), 
+        TextField(
+          controller: _emailController,
+          decoration: const InputDecoration(labelText: 'E-mail'),
         ),
-      ),
+        const SizedBox(height: 1.0),
+        TextField(
+          controller: _senhaController,
+          obscureText: true,
+          decoration: const InputDecoration(labelText: 'Senha'),
+        ),
+        const SizedBox(height: 24.0),
+        ElevatedButton(
+          child: const Text('Fazer Cadastro'),
+          onPressed: _cadastrar,
+        ),
+        ElevatedButton(
+          child: Text('Ver Usuarios'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ListUserPage()),
+            );
+          },
+        ),
+      ],
+    ),
+  ),
+),
+
+      
     );
   }
 }
