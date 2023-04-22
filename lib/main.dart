@@ -26,7 +26,10 @@ class RegisterApp extends StatelessWidget {
 var uuid = const Uuid();
 
 class ListUserPage extends StatefulWidget {
+  const ListUserPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ListUserPageState createState() => _ListUserPageState();
 }
 
@@ -78,6 +81,7 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -97,6 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     await insertContato(novoContato);
 
+    // ignore: use_build_context_synchronously
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -152,15 +157,15 @@ body: SingleChildScrollView(
         ),
         const SizedBox(height: 24.0),
         ElevatedButton(
-          child: const Text('Fazer Cadastro'),
           onPressed: _cadastrar,
+          child: const Text('Fazer Cadastro'),
         ),
         ElevatedButton(
-          child: Text('Ver Usuarios'),
+          child: const Text('Ver Usuarios'),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ListUserPage()),
+              MaterialPageRoute(builder: (context) => const ListUserPage()),
             );
           },
         ),

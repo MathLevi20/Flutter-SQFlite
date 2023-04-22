@@ -19,6 +19,7 @@ final database = await openDatabase(
   },
 );
 
+  // ignore: avoid_print
   print('Bancos:${database.isOpen}');
   return database;
 }
