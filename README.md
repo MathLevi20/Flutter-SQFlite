@@ -1,16 +1,35 @@
-# sql
+# Example Flutter SQLite App
 
-A new Flutter project.
+## About
 
-## Getting Started
+O objetivo deste aplicativo é fornecer um exemplo simples e funcional do uso do pacote sqflite em um projeto Flutter. O programa permite ao usuário criar e visualizar os usuarios utilizando um banco de dados SQLite para armazenar as informações.
 
-This project is a starting point for a Flutter application.
+## Funcionalidades
 
-A few resources to get you started if this is your first Flutter project:
+O aplicativo possui as seguintes funcionalidades:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Adicionar um novo usuário ao banco de dados SQLite
+- Visualizar uma lista de usuários cadastrados
+- Excluir um usuário da lista
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tecnologias utilizadas
+
+- Flutter
+- Dart
+- sqflite
+
+## Como usar
+
+Para usar este aplicativo, siga estas etapas:
+
+1. Clone este repositório para o seu computador
+2. Abra o projeto no seu editor de código preferido
+3. Execute o comando `flutter run` no terminal para executar o aplicativo em seu dispositivo ou emulador.
+
+## Contribuindo
+
+Este é um projeto de exemplo para fins educacionais, mas sinta-se livre para enviar sugestões de melhorias por meio de pull requests ou issues.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE.md para obter mais informações.
